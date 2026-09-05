@@ -1,0 +1,27 @@
+name: Python Code Tester
+
+on: [push, pull_request]
+
+jobs:
+  run-tests:
+    runs-on: ubuntu-latest
+    steps:
+      # Step 1: Copy your files onto the cloud computer
+      - name: Check out repository code
+        uses: actions/checkout@v4
+
+      # Step 2: Install Python
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      # Step 3: Read your requirements.txt and install pytest
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      # Step 4: Run the test file
+      - name: Run Pytest
+        run: pytest
